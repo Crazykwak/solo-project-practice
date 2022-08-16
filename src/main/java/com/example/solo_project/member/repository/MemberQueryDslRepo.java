@@ -12,7 +12,7 @@ import javax.persistence.EntityManager;
 import java.util.List;
 
 @Repository
-public class MemberQueryDslRepo {
+public abstract class MemberQueryDslRepo implements MemberRepository{
 
     private final EntityManager em;
     private final JPAQueryFactory query;
@@ -22,7 +22,7 @@ public class MemberQueryDslRepo {
         this.query = new JPAQueryFactory(em);
     }
 
-    public List<Member> findByEtc(MemberSearchDto memberSearchDto) {
+    public List<Member> findByEtc(MemberSearchDto memberSearchDto, int page, int limit) {
 
         String name = memberSearchDto.getName();
         String companyName = memberSearchDto.getCompanyName();
@@ -51,6 +51,8 @@ public class MemberQueryDslRepo {
                 .select(QMember.member)
                 .from(QMember.member)
                 .where(builder)
+                .limit(limit)
+                .offset(page)
                 .fetch();
     }
 
