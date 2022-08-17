@@ -1,6 +1,5 @@
 package com.example.solo_project.member;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -14,8 +13,8 @@ public class Member {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-
-    @Enumerated
+    private String password;
+    @Enumerated(EnumType.STRING)
     private Gender sex;
     private String companyName;
 
